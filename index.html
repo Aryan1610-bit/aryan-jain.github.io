@@ -210,6 +210,51 @@ footer{background:#070E1A;padding:24px 5vw;display:flex;align-items:center;justi
   .metrics-grid{grid-template-columns:1fr 1fr}
   section{padding:60px 5vw}
 }
+
+/* ── AI CHATBOT ── */
+#ai-bubble{position:fixed;bottom:28px;right:28px;z-index:9999}
+#ai-toggle{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--blue),#1D4ED8);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,99,235,.45);transition:transform .2s,box-shadow .2s;position:relative}
+#ai-toggle:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,99,235,.6)}
+#ai-toggle svg{transition:opacity .2s,transform .2s}
+#ai-toggle .icon-chat{position:absolute}
+#ai-toggle .icon-close{position:absolute;opacity:0;transform:rotate(-90deg)}
+#ai-bubble.open #ai-toggle .icon-chat{opacity:0;transform:rotate(90deg)}
+#ai-bubble.open #ai-toggle .icon-close{opacity:1;transform:rotate(0)}
+.ai-badge{position:absolute;top:-3px;right:-3px;width:18px;height:18px;background:var(--gold);border-radius:50%;border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:#000}
+#ai-panel{position:absolute;bottom:70px;right:0;width:360px;max-height:520px;background:#fff;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.18);display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(12px) scale(.97);pointer-events:none;transition:opacity .25s,transform .25s}
+#ai-bubble.open #ai-panel{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+.ai-header{background:linear-gradient(135deg,var(--navy),var(--navy-mid));padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ai-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--blue-light));display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#fff;flex-shrink:0}
+.ai-header-info{flex:1}
+.ai-header-name{font-size:.9rem;font-weight:700;color:#fff;line-height:1.2}
+.ai-header-status{font-size:.72rem;color:#94A3B8;display:flex;align-items:center;gap:.3rem}
+.ai-status-dot{width:6px;height:6px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
+.ai-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth}
+.ai-messages::-webkit-scrollbar{width:4px}
+.ai-messages::-webkit-scrollbar-track{background:transparent}
+.ai-messages::-webkit-scrollbar-thumb{background:#E2E8F0;border-radius:4px}
+.msg{max-width:85%;font-size:.84rem;line-height:1.55;padding:.65rem .9rem;border-radius:12px;animation:msgIn .2s ease}
+@keyframes msgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.msg.bot{background:var(--grey);color:var(--text-dark);border-bottom-left-radius:3px;align-self:flex-start}
+.msg.bot strong{color:var(--blue)}
+.msg.user{background:var(--blue);color:#fff;border-bottom-right-radius:3px;align-self:flex-end}
+.msg.typing{background:var(--grey);align-self:flex-start;padding:.7rem 1rem}
+.typing-dots{display:flex;gap:4px;align-items:center}
+.typing-dots span{width:6px;height:6px;background:#94A3B8;border-radius:50%;animation:dot 1.2s infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes dot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+.ai-suggestions{padding:0 12px 10px;display:flex;flex-wrap:wrap;gap:6px;flex-shrink:0}
+.ai-suggestions button{background:var(--off-white);border:1px solid var(--border);color:var(--text-mid);font-size:.73rem;font-weight:500;padding:.3rem .7rem;border-radius:50px;cursor:pointer;transition:all .15s;font-family:var(--font)}
+.ai-suggestions button:hover{background:#EFF6FF;border-color:#BFDBFE;color:var(--blue)}
+.ai-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border);flex-shrink:0;background:#fff}
+#ai-input{flex:1;border:1px solid var(--border);border-radius:8px;padding:.5rem .75rem;font-size:.84rem;font-family:var(--font);color:var(--text-dark);outline:none;transition:border-color .2s;resize:none;height:36px}
+#ai-input:focus{border-color:var(--blue)}
+#ai-send{width:36px;height:36px;background:var(--blue);border:none;border-radius:8px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;flex-shrink:0}
+#ai-send:hover{background:var(--blue-light)}
+#ai-send:disabled{background:#CBD5E1;cursor:not-allowed}
+.ai-footer{text-align:center;font-size:.65rem;color:#CBD5E1;padding:4px 0 8px;flex-shrink:0}
+@media(max-width:420px){#ai-panel{width:calc(100vw - 24px);right:-8px}}
 </style>
 </head>
 <body>
@@ -308,7 +353,7 @@ footer{background:#070E1A;padding:24px 5vw;display:flex;align-items:center;justi
     <div class="about-highlights">
       <div class="highlight-card">
         <strong>Most Recent Role</strong>
-        <span>Sr. Conference Account Executive @ Menteso, Noida — April 2024 to September 2026</span>
+        <span>Sr. Conference Account Executive @ Menteso, Noida — Apr 2024 to Sep 2026</span>
       </div>
       <div class="highlight-card">
         <strong>Education</strong>
@@ -575,7 +620,222 @@ footer{background:#070E1A;padding:24px 5vw;display:flex;align-items:center;justi
   <div class="footer-copy">© 2025 Aryan Jain · Built for MNC Applications</div>
 </footer>
 
+<!-- ── AI CHATBOT WIDGET ── -->
+<div id="ai-bubble">
+  <div id="ai-panel">
+    <div class="ai-header">
+      <div class="ai-avatar">AJ</div>
+      <div class="ai-header-info">
+        <div class="ai-header-name">Aryan's AI Assistant</div>
+        <div class="ai-header-status"><span class="ai-status-dot"></span>Ask me anything about Aryan</div>
+      </div>
+    </div>
+    <div class="ai-messages" id="ai-messages">
+      <div class="msg bot">👋 Hi! I'm Aryan's AI assistant. Ask me about his <strong>experience</strong>, <strong>achievements</strong>, <strong>skills</strong>, or <strong>availability</strong> — I'll answer instantly!</div>
+    </div>
+    <div class="ai-suggestions" id="ai-suggestions">
+      <button onclick="askSuggestion(this)">What's his experience?</button>
+      <button onclick="askSuggestion(this)">Key achievements?</button>
+      <button onclick="askSuggestion(this)">Is he open to work?</button>
+      <button onclick="askSuggestion(this)">What industries?</button>
+      <button onclick="askSuggestion(this)">CRM tools he uses?</button>
+      <button onclick="askSuggestion(this)">Contact details?</button>
+    </div>
+    <div class="ai-input-row">
+      <input id="ai-input" type="text" placeholder="Ask about Aryan..." maxlength="300" />
+      <button id="ai-send" onclick="sendMessage()" title="Send">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+    <div class="ai-footer">Powered by Google Gemini · About Aryan Jain only</div>
+  </div>
+  <button id="ai-toggle" onclick="toggleChat()" title="Chat with AI">
+    <svg class="icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <div class="ai-badge">AI</div>
+  </button>
+</div>
+
 <script>
+// ── AQ.Ab8RN6JT03bh78k_5kdP9jXPkKch7VmHY__gqEz0yK_mxUajGg ──────────────────────────
+const GEMINI_API_KEY = "AQ.Ab8RN6JT03bh78k_5kdP9jXPkKch7VmHY__gqEz0yK_mxUajGg";
+// ─────────────────────────────────────────────────────────────────
+
+const ARYAN_CONTEXT = `
+You are an AI assistant on Aryan Jain's professional portfolio website.
+Answer ONLY questions about Aryan Jain's professional profile. If asked anything unrelated, politely redirect.
+Keep answers concise, professional, and impressive. Use bullet points when listing multiple items.
+
+=== ARYAN JAIN — FULL PROFESSIONAL PROFILE ===
+
+PERSONAL:
+- Full Name: Aryan Jain
+- Location: Noida, Uttar Pradesh, India
+- Email: aryuujain123@gmail.com
+- Phone: +91 6264682906
+- LinkedIn: linkedin.com/in/aryan-jain-6b1233245
+- Status: Open to new MNC opportunities (Available immediately)
+- Education: B.Com — Accounting & Business Management, Jiwaji University (2023)
+
+EXPERIENCE SUMMARY:
+- 2.10+ years of B2B enterprise and SaaS sales experience
+- Full sales cycle ownership: Discovery → Qualification → Demo → Proposal → Negotiation → Close
+- Experience managing BDR/SDR teams of 5–7 people
+- Sold to C-suite executives across 70+ countries
+
+JOB 1 — MENTESO (April 2024 – September 2026):
+Role: Sr. Conference Account Executive — Enterprise & Global Sales
+Location: Noida, India
+Products: 4 international conference brands — World Lawyers Forum (WLF), International Intellectual Property Law Association (IIPLA), World Finance Council (WFC), GRC Cybersecurity Risk & Summit
+Key Achievements:
+- $125K+ in total closed revenue (including $52K+ in 2025)
+- $25K–$30K monthly pipeline managed end-to-end
+- Consistently closed $6K–$7K per month
+- 80%–120% quota attainment every quarter
+- High-value B2B deals: average $2,000 per client, up to $5,000 per deal
+- 300+ international speaker relationships retained and grown through upsell/cross-sell/resell
+- 15+ international conferences delivered end-to-end
+- Official Emcee at 2-day global summit in Dubai
+- Managed team of 5–7 BDR/SDRs
+- Clients across 70+ countries (US, UK, Europe, UAE, APAC, Middle East)
+- Revenue products: sponsorships, exhibition packages, delegate passes, speakerships
+
+JOB 2 — UBITECH SOLUTIONS PVT LTD (October 2023 – April 2024):
+Role: Account Executive
+Location: Gwalior, India
+Products: UBI Attendance Software, UBI HRM Software, Hikvision biometric devices
+Key Achievements:
+- 150% quota attainment (monthly target ₹50K)
+- 85+ SaaS product demonstrations conducted
+- 40% lead-to-paying-client conversion rate (well above industry average)
+- Upselling SaaS add-ons: Geofence, Live Tracking, Payroll, HRMS features
+- Bundled SaaS + hardware solutions (Hikvision biometric + SaaS)
+- Leads from IndiaMART and Pragati Maidan expo
+
+SKILLS:
+Sales: B2B Enterprise Sales, SaaS Sales, Full-Cycle Deal Closure, Negotiation, Revenue Generation, Pipeline Management, Sales Forecasting, Upselling, Cross-Selling
+Account Management: Key Account Management, Global Client Handling, Stakeholder Engagement, Client Retention, Executive Engagement, Relationship Management
+Business Development: Business Development, Market Expansion, Strategic Partnerships, Go-to-Market Strategy, Buyer-Centric Selling
+Tools: Zoho CRM, HubSpot CRM, MS Excel, MS PowerPoint, Slack, AI Tools
+Learning: Power BI, SQL, Tableau
+
+SALES METHODOLOGIES:
+Challenger Selling, SPIN Selling, Solution Selling, Consultative Selling, BANT, MEDDIC, Buyer-Centric Selling, Inbound Sales
+
+CERTIFICATIONS:
+1. HubSpot Sales Management Certification — covers Sales Leadership, Team Coaching, Pipeline Reviews, Revenue Forecasting, Sales Process Design, Buyer-Centric Selling, Customer Engagement
+2. HubSpot Inbound Certification — covers Inbound Methodology, Buyer Persona Development, Buyer Journey Mapping, OKR/Goal Setting, CRM Management, Flywheel Growth, Golden Circle Framework
+
+KEY METRICS (at a glance):
+- $125K+ revenue generated over 2.5 years
+- $52K+ revenue in 2025 alone
+- 70+ countries served
+- $25K–$30K monthly pipeline owned
+- $6K–$7K closed per month
+- 80%–120% quota attainment
+- 40% SaaS lead-to-close conversion rate
+- 85+ product demos delivered
+- 150% quota at Ubitech
+- 15+ international conferences
+- 300+ international speakers retained
+- 2 HubSpot certifications
+- Team leadership: 5–7 BDR/SDRs
+
+AVAILABILITY: Aryan is actively looking for Account Executive, Enterprise Sales, or SaaS Sales roles at MNCs. He is available immediately and open to opportunities globally (especially US, UK, UAE, Europe, APAC markets). He can be contacted at aryuujain123@gmail.com or +91 6264682906.
+`;
+
+let chatHistory = [];
+let isTyping = false;
+
+function toggleChat() {
+  document.getElementById('ai-bubble').classList.toggle('open');
+}
+
+function addMessage(text, role) {
+  const msgs = document.getElementById('ai-messages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  div.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/\n/g, '<br/>');
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('ai-messages');
+  const div = document.createElement('div');
+  div.className = 'msg typing';
+  div.id = 'typing-indicator';
+  div.innerHTML = '<div class="typing-dots"><span></span><span></span><span></span></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function removeTyping() {
+  const t = document.getElementById('typing-indicator');
+  if (t) t.remove();
+}
+
+function askSuggestion(btn) {
+  const q = btn.textContent;
+  document.getElementById('ai-suggestions').style.display = 'none';
+  sendMessage(q);
+}
+
+async function sendMessage(overrideText) {
+  if (isTyping) return;
+  const input = document.getElementById('ai-input');
+  const text = (overrideText || input.value).trim();
+  if (!text) return;
+
+  if (GEMINI_API_KEY === 'AQ.Ab8RN6JT03bh78k_5kdP9jXPkKch7VmHY__gqEz0yK_mxUajGg') {
+    addMessage('⚠️ API key not set yet. The site owner needs to add their free Gemini API key to activate the AI. In the meantime, feel free to explore the portfolio above!', 'bot');
+    input.value = '';
+    return;
+  }
+
+  input.value = '';
+  addMessage(text, 'user');
+  document.getElementById('ai-suggestions').style.display = 'none';
+  document.getElementById('ai-send').disabled = true;
+  isTyping = true;
+  showTyping();
+
+  chatHistory.push({ role: 'user', parts: [{ text }] });
+
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: ARYAN_CONTEXT }] },
+          contents: chatHistory,
+          generationConfig: { maxOutputTokens: 400, temperature: 0.7 }
+        })
+      }
+    );
+    const data = await res.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't fetch a response. Please try again.";
+    chatHistory.push({ role: 'model', parts: [{ text: reply }] });
+    removeTyping();
+    addMessage(reply, 'bot');
+  } catch (e) {
+    removeTyping();
+    addMessage('Something went wrong. Please try again in a moment.', 'bot');
+  }
+
+  isTyping = false;
+  document.getElementById('ai-send').disabled = false;
+}
+
+// Enter key to send AI message
+document.getElementById('ai-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+
 // Mobile nav toggle
 const toggle = document.getElementById('navToggle');
 const links = document.getElementById('navLinks');
